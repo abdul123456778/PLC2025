@@ -1,17 +1,16 @@
-ask :: String -> Int -> IO ()
-ask prompt exclamations = do
-  putStrLn (prompt ++ replicate exclamations '!')
+ask :: String -> IO ()
+ask prompt = do
+  putStrLn prompt 
   line <- getLine
-  if line == "quit"
-    then putStrLn "quitting..."
-    else if line == ""
-    then ask prompt (exclamations + 1)
+  if line == ""
+    then ask (prompt ++ "!") --add ! to message each time 
+    else if (line == "quit") then putStrLn ("quitting...")--conditions for quitting
     else do
         putStrLn ("you said: " ++ reverse line)
-        ask prompt 0  -- Reset "!" count after valid input
+        ask prompt  
 
 
 main :: IO ()
 main = do
   let prompt = "please say something"
-  ask prompt 0
+  ask prompt 
